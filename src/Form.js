@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {connect} from 'redux-redux';
+import {connect} from 'react-redux';
 import * as actions from "./store/actions.js";
 
 import Methods from './Methods';
