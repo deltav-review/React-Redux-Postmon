@@ -1,0 +1,80 @@
+.body {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+}
+.header {
+  width: 100vw;
+  height: 8%;
+  background:#7F8C64;
+  margin-top: 0;
+  margin-bottom: 0;
+
+ padding: 2%;
+  font-size: 20px;
+  font-weight: bold;
+  color:white;
+}
+.main {
+  width: 100vw;
+  height : 100vh;
+  margin-top: 0;
+  .methods > li {
+    list-style: none;
+    font-size: 20px;
+    display: inline-block;
+    width: 15%;
+
+  }
+  .sectionLeft{
+    width: 20vw;
+    min-height: 100vh;
+    background: #7F8C64;
+    float: left;
+    .text {
+      margin-left: 5%;
+      margin-top: 0
+    }
+
+  }
+
+  .sectionRight{
+    width: 80vw;
+    min-height: 100vh;
+    background: #7F8C64;
+    float: left;
+    .input-right {
+      width: 95%;
+    }
+    .text-box {
+      min-width: 47%;
+      height:9em;
+      margin:0;
+
+    }
+    .button-box {
+      min-width: 50%;
+      height:9em;
+      float: right;
+     .left {
+       width: 95%;
+      }
+    }
+  }
+  .width {
+    width: 100%;
+    height: 26em;
+    background: white;
+
+  }
+}
+
+//773
+@media only screen and (min-width: 782px) {
+  .button-box {
+    min-width: 50%;
+    float: left;
+
+  }
+}
