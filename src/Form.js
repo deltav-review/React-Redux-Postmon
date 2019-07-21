@@ -1,11 +1,12 @@
 
 import React from 'react';
+import {connect} from 'redux-redux';
+import * as actions from "./store/actions.js";
+
 import Methods from './Methods';
 import TextBox from './TextBox';
 import Display from './Display';
 const axios = require('axios');
-
-
 class Form extends React.Component {
   constructor() {
     super()
@@ -154,4 +155,13 @@ handleChangeAuth =(text)=> {
     )
   }
 }
-export default Form;
+const mapStateToProps=(state)=> ({
+ method: state.reducer
+
+});
+
+const mapDispatchToProps = (dispatch, getState)=>({
+  handleGet: () =>  dispatch(actions.get())
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Form)
