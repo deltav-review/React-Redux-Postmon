@@ -31,15 +31,20 @@ class Form extends React.Component {
   }
 
   go = (e) => {
+    console.log('l-34')
+
     e.preventDefault();
     let url = e.target.url.value;
     if (this.state.method === 'GET') {
+
       axios.get(url)
         .then((response) => {
+          console.log('l-43', response)
           // handle success
-          this.setState({
-            data: response
-          })
+          // this.setState({
+          //   data: response
+          // })
+          this.props.handleGet(response);
         })
         .catch(function (error) {
           // handle error
@@ -119,6 +124,7 @@ auth = () => {
 
 }
   handleChange = (text) => {
+    console.log('l-129',text)
     this.setState({ textbox: text.target.value })
     const name = {
       title: 'foo',
@@ -149,7 +155,9 @@ handleChangeAuth =(text)=> {
           <TextBox basicauth='Basic Authorization' bearertoken='Bearer Token' name='textbox' value={this.state.textbox} handler={this.handleChange} authhandle={this.handleChangeAuth} handleauth={this.auth}/>
 
           <br />
-          <Display basicauth='Basic Authorization' data={this.state.data} />
+          <Display basicauth='Basic Authorization' data={this.props.method} />
+         { console.log('state 159 put in display',this.props) }
+
         </div>
       </form>
     )
@@ -161,7 +169,7 @@ const mapStateToProps=(state)=> ({
 });
 
 const mapDispatchToProps = (dispatch, getState)=>({
-  handleGet: () =>  dispatch(actions.get())
+  handleGet: (data) =>  dispatch(actions.get(data))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Form)
