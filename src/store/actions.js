@@ -1,8 +1,21 @@
 
 export const get =(payload) => {
-  console.log('l-3 action ', payload)
   return {
     type: 'GET',
     payload
   }
 };
+export const delete1 =(payload) => {
+  console.log('d-17')
+  return {
+    type: 'DELETE',
+    payload
+  }
+};
+export const post =(payload) => {
+  return {
+    type: 'POST',
+    payload
+  }
+};
+

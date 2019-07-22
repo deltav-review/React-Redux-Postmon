@@ -31,7 +31,7 @@ class Form extends React.Component {
   }
 
   go = (e) => {
-    console.log('l-34')
+    console.log('go-34')
 
     e.preventDefault();
     let url = e.target.url.value;
@@ -39,7 +39,7 @@ class Form extends React.Component {
 
       axios.get(url)
         .then((response) => {
-          console.log('l-43', response)
+          console.log('get-43', response)
           // handle success
           // this.setState({
           //   data: response
@@ -56,9 +56,9 @@ class Form extends React.Component {
       axios.post(url, this.state.textbox)
         .then((response) => {
           // handle success
-          this.setState({
-            data: response
-          })
+          // 
+          this.props.handlePost(response);
+
         })
         .catch(function (error) {
           // handle error
@@ -72,9 +72,12 @@ class Form extends React.Component {
       axios.delete(`${url}/${this.state.textbox}`, this.state.textbox)
         .then((response) => {
           // handle success
-          this.setState({
-            data: response
-          })
+          console.log('d-75', response)
+          // this.setState({
+          //   data: response
+          // })
+          this.props.handleDelete(response);
+
         })
         .catch(function (error) {
           // handle error
@@ -156,7 +159,6 @@ handleChangeAuth =(text)=> {
 
           <br />
           <Display basicauth='Basic Authorization' data={this.props.method} />
-         { console.log('state 159 put in display',this.props) }
 
         </div>
       </form>
@@ -169,7 +171,11 @@ const mapStateToProps=(state)=> ({
 });
 
 const mapDispatchToProps = (dispatch, getState)=>({
-  handleGet: (data) =>  dispatch(actions.get(data))
+  handleGet: (data) =>  dispatch(actions.get(data)),
+  handlePost: (data) =>  dispatch(actions.post(data)),
+  handleDelete: (data) =>  dispatch(actions.delete1(data))
+
+
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Form)
