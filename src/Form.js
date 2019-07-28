@@ -1,11 +1,12 @@
 
 import React from 'react';
+import {connect} from 'react-redux';
+import * as actions from "./store/actions.js";
+
 import Methods from './Methods';
 import TextBox from './TextBox';
 import Display from './Display';
 const axios = require('axios');
-
-
 class Form extends React.Component {
   constructor() {
     super()
@@ -30,15 +31,20 @@ class Form extends React.Component {
   }
 
   go = (e) => {
+    console.log('go-34')
+
     e.preventDefault();
     let url = e.target.url.value;
     if (this.state.method === 'GET') {
+
       axios.get(url)
         .then((response) => {
+          console.log('get-43', response)
           // handle success
-          this.setState({
-            data: response
-          })
+          // this.setState({
+          //   data: response
+          // })
+          this.props.handleGet(response);
         })
         .catch(function (error) {
           // handle error
@@ -50,9 +56,9 @@ class Form extends React.Component {
       axios.post(url, this.state.textbox)
         .then((response) => {
           // handle success
-          this.setState({
-            data: response
-          })
+          // 
+          this.props.handlePost(response);
+
         })
         .catch(function (error) {
           // handle error
@@ -66,9 +72,12 @@ class Form extends React.Component {
       axios.delete(`${url}/${this.state.textbox}`, this.state.textbox)
         .then((response) => {
           // handle success
-          this.setState({
-            data: response
-          })
+          console.log('d-75', response)
+          // this.setState({
+          //   data: response
+          // })
+          this.props.handleDelete(response);
+
         })
         .catch(function (error) {
           // handle error
@@ -118,6 +127,7 @@ auth = () => {
 
 }
   handleChange = (text) => {
+    console.log('l-129',text)
     this.setState({ textbox: text.target.value })
     const name = {
       title: 'foo',
@@ -148,10 +158,24 @@ handleChangeAuth =(text)=> {
           <TextBox basicauth='Basic Authorization' bearertoken='Bearer Token' name='textbox' value={this.state.textbox} handler={this.handleChange} authhandle={this.handleChangeAuth} handleauth={this.auth}/>
 
           <br />
-          <Display basicauth='Basic Authorization' data={this.state.data} />
+          <Display basicauth='Basic Authorization' data={this.props.method} />
+
         </div>
       </form>
     )
   }
 }
-export default Form;
+const mapStateToProps=(state)=> ({
+ method: state.reducer
+
+});
+
+const mapDispatchToProps = (dispatch, getState)=>({
+  handleGet: (data) =>  dispatch(actions.get(data)),
+  handlePost: (data) =>  dispatch(actions.post(data)),
+  handleDelete: (data) =>  dispatch(actions.delete1(data))
+
+
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Form)
